@@ -7,7 +7,11 @@
     "outDir": "dist",
     "resolveJsonModule": false,
     "esModuleInterop": true,
-    "lib": ["DOM"]
+    "target": "ES2020", // or a more recent version
+    "lib": ["ES2020", "DOM"], // Ensure ES2020 is included
+    "typeRoots": ["node_modules/@types"],
+    "moduleResolution": "node",
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*.ts",

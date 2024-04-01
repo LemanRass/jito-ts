@@ -35,7 +35,8 @@ import {
 } from 'superstruct';
 import type {Agent as NodeHttpAgent} from 'http';
 import {Agent as NodeHttpsAgent} from 'https';
-import fetchImpl, {Response} from './fetch-impl';
+import fetchImpl from './fetch-impl';
+import {nodeFetch} from "./fetch-impl";
 import HttpKeepAliveAgent, {
   HttpsAgent as HttpsKeepAliveAgent,
 } from 'agentkeepalive';
@@ -292,7 +293,7 @@ function createRpcClient(
 
     try {
       let too_many_requests_retries = 5;
-      let res: Response;
+      let res: nodeFetch.Response;
       let waitTime = 500;
       for (;;) {
         if (fetchWithMiddleware) {

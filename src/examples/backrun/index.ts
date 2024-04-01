@@ -3,8 +3,7 @@ require('dotenv').config();
 import {Keypair, Connection, PublicKey} from '@solana/web3.js';
 import * as Fs from 'fs';
 
-import {searcherClient} from '../../sdk/block-engine/searcher';
-import {onBundleResult, onAccountUpdates} from './utils';
+import * as searcher from '../../sdk/block-engine/searcher';
 
 const main = async () => {
   const blockEngineUrl = process.env.BLOCK_ENGINE_URL || '';
@@ -17,29 +16,16 @@ const main = async () => {
   );
   const keypair = Keypair.fromSecretKey(decodedKey);
 
-  const _accounts = (process.env.ACCOUNTS_OF_INTEREST || '').split(',');
-  console.log('ACCOUNTS_OF_INTEREST:', _accounts);
-  const accounts = _accounts.map(a => new PublicKey(a));
 
-  const bundleTransactionLimit = parseInt(
-    process.env.BUNDLE_TRANSACTION_LIMIT || '0'
-  );
-
-  const c = searcherClient(blockEngineUrl, keypair);
+  const c = searcher.searcherClient(blockEngineUrl, keypair);
 
   const rpcUrl = process.env.RPC_URL || '';
   console.log('RPC_URL:', rpcUrl);
   const conn = new Connection(rpcUrl, 'confirmed');
 
-  await onAccountUpdates(
-    c,
-    accounts,
-    [],
-    bundleTransactionLimit,
-    keypair,
-    conn
-  );
-  onBundleResult(c);
+  let nextLeader = await c.getNextScheduledLeader();
+  console.log('next leader:', nextLeader);
+
 };
 
 main()

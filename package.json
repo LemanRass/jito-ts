@@ -11,12 +11,19 @@
     "@noble/ed25519": "^1.7.1",
     "@solana/web3.js": "~1.77.3",
     "agentkeepalive": "^4.3.0",
-    "dotenv": "^16.0.3",
+    "bn.js": "^5.2.1",
+    "dotenv": "^16.4.5",
+    "fake-useragent": "^1.0.1",
     "jayson": "^4.0.0",
     "node-fetch": "^2.6.7",
-    "superstruct": "^1.0.3"
+    "superstruct": "^1.0.3",
+    "telegram": "^2.20.2",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
+    "@types/big.js": "^6.2.2",
+    "@types/bn.js": "^5.1.5",
+    "@types/fake-useragent": "^1.0.0",
     "@types/google-protobuf": "^3.15.6",
     "@types/node": "^14.11.2",
     "@types/node-fetch": "^2.6",
@@ -38,6 +45,7 @@
     "pretest": "yarn run compile",
     "posttest": "yarn run lint",
     "run:backrun": "yarn tsc && node dist/examples/backrun/index",
-    "run:geyser": "yarn tsc && node dist/examples/geyser/index"
+    "run:geyser": "yarn tsc && node dist/examples/geyser/index",
+    "run:bot": "tsc && node ./dist/bot/main"
   }
 }
