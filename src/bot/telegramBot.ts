@@ -17,7 +17,7 @@ export async function initTelegramBot() {
 
   let channel : Api.Channel = await client.getEntity(channelName) as Api.Channel;
   log("Observed channel: " + channel.id);
-  let inputChannel : EntityLike = new Api.InputChannel({
+  /*let inputChannel : EntityLike = new Api.InputChannel({
     channelId: channel.id,
     accessHash: channel.accessHash!
   });
@@ -30,7 +30,7 @@ export async function initTelegramBot() {
       limit: 100,
       force: true
     })
-  );
+  );*/
 
   client.addEventHandler((update : any) => {
     try {
@@ -61,6 +61,7 @@ export async function initTelegramBot() {
   });
 
   log("Client is ready to receive messages...");
+  keepAlive();
 }
 
 async function newMessageHandler(message : string) {
@@ -71,4 +72,9 @@ async function newMessageHandler(message : string) {
       onContractFound(contractPublicKey);
     }
   }
+}
+
+async function keepAlive() {
+  await client.invoke(new Api.updates.GetState());
+  setTimeout(keepAlive, 1000 * 5);
 }

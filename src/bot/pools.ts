@@ -9,7 +9,7 @@ import fakeUa from "fake-useragent";
 
 let pools : Map<string, Pool> = new Map<string, Pool>();
 let runningCount = 0;
-const MAX_RUNNING_COUNT = 5;
+const MAX_RUNNING_COUNT = 3;
 
 class Pool {
   id: PublicKey;
